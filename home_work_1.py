@@ -26,8 +26,6 @@ class Student:
     def __lt__(self, other):
         if self.middle() > other.middle():
             print('Лучший студент -', self.name, self.surname)
-        elif self.middle() == other.middle():
-             print('Оба хороши!')
         else: 
             print('Лучший студент -', other.name, other.surname)
         return
@@ -54,8 +52,6 @@ class Lecturer(Mentor):
     def __lt__(self, other):
         if self.middle() > other.middle():
             print('Лучший лектор -', self.name, self.surname)
-        elif self.middle() == other.middle():
-            print('Оба хороши!')
         else:
             print('Лучший лектор -', other.name, other.surname)        
         return  
@@ -131,36 +127,33 @@ first_lecturer.__lt__(second_lecturer)
 first_reviewer.__str__()
 second_reviewer.__str__()
 
-def middle_grade_student(first_student, second_student, course):
-  overal_grades = 0
-  count_grades = 0
-  if course in first_student.grades.keys():
-    for grades in first_student.grades[course]:
-      overal_grades += grades
-    count_grades += len(first_student.grades[course])
-    if course in second_student.grades.keys():    
-      for grades in second_student.grades[course]:
-        overal_grades += grades
-      count_grades += len(second_student.grades[course])
-  print('Средняя оценка по курсу', course, 'у студентов составляет:', round(overal_grades / count_grades, 2))
-  return   
-  
-middle_grade_student(first_student, second_student, 'Python') 
-middle_grade_student(first_student, second_student, 'Git') 
+student_list = [first_student, second_student]
+lecturer_list = [first_lecturer, second_lecturer]
 
-def middle_grade_lecturer(first_lecturer, second_lecturer, course):
-  overal_grades = 0
-  count_grades = 0
-  if course in first_lecturer.grades.keys():
-    for grades in first_lecturer.grades[course]:
-      overal_grades += grades
-    count_grades += len(first_lecturer.grades[course])
-    if course in second_lecturer.grades.keys():    
-      for grades in second_lecturer.grades[course]:
-        overal_grades += grades
-      count_grades += len(second_lecturer.grades[course])
-  print('Средняя оценка по курсу', course, 'у лекторов составляет:', round(overal_grades / count_grades, 2))
-     
+def middle_grade_student(student_list, course):
+    overal_grades = 0
+    count_grades = 0
+    for student in student_list:
+        if course in student.grades.keys():
+            for grades in student.grades[course]:
+                overal_grades += grades
+            count_grades += len(student.grades[course])
+    print('Средняя оценка по курсу', course, 'у студентов составляет:', round(overal_grades / count_grades, 2))
+    return  
   
-middle_grade_lecturer(first_lecturer, second_lecturer, 'Python')
-middle_grade_lecturer(first_lecturer, second_lecturer, 'Git') 
+middle_grade_student(student_list, 'Python') 
+middle_grade_student(student_list, 'Git') 
+
+def middle_grade_lecturer(lecturer_list, course):
+    overal_grades = 0
+    count_grades = 0
+    for lecturer in lecturer_list:
+        if course in lecturer.grades.keys():
+            for grades in lecturer.grades[course]:
+                overal_grades += grades
+            count_grades += len(lecturer.grades[course])
+    print('Средняя оценка по курсу', course, 'у лекторов составляет:', round(overal_grades / count_grades, 2))
+    return 
+  
+middle_grade_lecturer(lecturer_list, 'Python')
+middle_grade_lecturer(lecturer_list, 'Git') 
